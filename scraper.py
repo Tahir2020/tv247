@@ -12,7 +12,8 @@ from datetime import datetime
 # YAPILANDIRMA
 # ─────────────────────────────────────────────
 BASE_URL = "https://tv247.us/watch/"
-OUTPUT_FILE = "tv247.m3u"
+OUTPUT_DIR = "playlist"  # Klasör adı
+MAIN_PLAYLIST = "playlist.m3u"  # Ana playlist dosyası
 CHANNELS_FILE = "channels.txt"
 
 HEADERS = {
@@ -168,7 +169,7 @@ def find_channel_id_from_page(channel_slug):
             except Exception as e:
                 log(f"  iframe hatası: {e}")
         
-        # 3. Script tag'larında ara
+        # 3. Script tag'lerinde ara
         script_pattern = r'<script[^>]*>(.*?)</script>'
         scripts = re.findall(script_pattern, html, re.DOTALL | re.IGNORECASE)
         
@@ -343,17 +344,56 @@ def load_channels():
                 name = parts[1].strip() if len(parts) > 1 else slug.replace('-', ' ').title()
                 channels.append({'slug': slug, 'name': name})
     else:
+        # Örnek kanallar
         channels = [
             {'slug': 'bein-sports-1-turkey', 'name': 'beIN Sports 1'},
+            {'slug': 'bein-sports-2-turkey', 'name': 'beIN Sports 2'},
+            {'slug': 'trt-spor-turkey', 'name': 'TRT Spor'},
+            {'slug': 'a-spor-turkey', 'name': 'A Spor'},
+            {'slug': 'now-tv-turkey', 'name': 'NOW TV'},
+            {'slug': 'atv-turkey', 'name': 'ATV'},
         ]
     
     return channels
 
 
-def generate_m3u(results):
-    """M3U dosyası oluştur"""
+def generate_single_m3u(channel, output_dir):
+    """Tek bir kanal için M3U dosyası oluştur"""
+    # Dosya adını oluştur (geçersiz karakterleri temizle)
+    safe_name = re.sub(r'[\\/*?:"<>|]', "", channel['name'])
+    safe_name = safe_name.replace(' ', '_')
+    filename = f"{safe_name}.m3u"
+    filepath = os.path.join(output_dir, filename)
+    
+    # M3U içeriği
     lines = ['#EXTM3U']
     lines.append(f'# Updated: {datetime.now().strftime("%Y-%m-%d %H:%M:%S UTC")}')
+    lines.append('')
+    
+    if channel.get('url'):
+        lines.append(
+            f'#EXTINF:-1 tvg-id="{channel["slug"]}" '
+            f'tvg-name="{channel["name"]}" '
+            f'group-title="TV247",{channel["name"]}'
+        )
+        lines.append(channel['url'])
+    else:
+        lines.append(f'#EXTINF:-1 tvg-id="{channel["slug"]}" tvg-name="{channel["name"]}",{channel["name"]}')
+        lines.append('# No stream URL found')
+    
+    content = '\n'.join(lines)
+    
+    with open(filepath, 'w', encoding='utf-8') as f:
+        f.write(content)
+    
+    return filename, content
+
+
+def generate_main_playlist(results, output_dir, main_playlist_name):
+    """Ana playlist.m3u dosyasını oluştur (tüm kanalları içerir)"""
+    lines = ['#EXTM3U']
+    lines.append(f'# Updated: {datetime.now().strftime("%Y-%m-%d %H:%M:%S UTC")}')
+    lines.append('# This playlist contains all channels')
     lines.append('')
     
     for ch in results:
@@ -368,10 +408,10 @@ def generate_m3u(results):
     
     content = '\n'.join(lines)
     
-    with open(OUTPUT_FILE, 'w', encoding='utf-8') as f:
+    main_filepath = os.path.join(output_dir, main_playlist_name)
+    with open(main_filepath, 'w', encoding='utf-8') as f:
         f.write(content)
     
-    log(f"\n✓ {OUTPUT_FILE} oluşturuldu")
     return content
 
 
@@ -380,13 +420,21 @@ def generate_m3u(results):
 # ─────────────────────────────────────────────
 def main():
     log("=" * 50)
-    log("TV247 M3U Generator")
+    log("TV247 M3U Generator - Playlist Klasörü")
     log("=" * 50)
+    
+    # Çıktı klasörünü oluştur
+    if not os.path.exists(OUTPUT_DIR):
+        os.makedirs(OUTPUT_DIR)
+        log(f"✓ '{OUTPUT_DIR}' klasörü oluşturuldu")
+    else:
+        log(f"✓ '{OUTPUT_DIR}' klasörü hazır")
     
     channels = load_channels()
     log(f"\n{len(channels)} kanal işlenecek\n")
     
     results = []
+    created_files = []
     
     for i, ch in enumerate(channels):
         log(f"\n[{i+1}/{len(channels)}] {ch['name']}")
@@ -394,33 +442,52 @@ def main():
         
         stream_url = find_stream_url(ch['slug'])
         
-        results.append({
+        channel_data = {
             'slug': ch['slug'],
             'name': ch['name'],
             'url': stream_url
-        })
+        }
+        results.append(channel_data)
+        
+        # Tek kanal için M3U oluştur
+        filename, content = generate_single_m3u(channel_data, OUTPUT_DIR)
+        created_files.append(filename)
         
         if stream_url:
-            log(f"✓ {stream_url[:80]}...")
+            log(f"✓ {filename} oluşturuldu")
+            log(f"  URL: {stream_url[:80]}...")
         else:
-            log(f"✗ Bulunamadı")
+            log(f"⚠ {filename} oluşturuldu (stream bulunamadı)")
         
         time.sleep(1)
     
-    # M3U oluştur
-    log("\n" + "=" * 50)
-    content = generate_m3u(results)
-    print(f"\n{content}")
+    # Ana playlist.m3u dosyasını oluştur
+    main_content = generate_main_playlist(results, OUTPUT_DIR, MAIN_PLAYLIST)
+    log(f"\n✓ {MAIN_PLAYLIST} oluşturuldu (tüm kanalları içerir)")
     
     # Özet
     found = sum(1 for r in results if r.get('url'))
-    log(f"\nSONUÇ: {found}/{len(results)} kanal bulundu")
+    log("\n" + "=" * 50)
+    log(f"SONUÇ: {found}/{len(results)} kanal bulundu")
+    log(f"✓ {len(created_files)} ayrı M3U dosyası '{OUTPUT_DIR}/' klasörüne kaydedildi")
+    log(f"✓ Tüm kanallar '{OUTPUT_DIR}/{MAIN_PLAYLIST}' dosyasında birleştirildi")
+    
+    # Klasör içeriğini listele
+    log(f"\n📁 '{OUTPUT_DIR}/' klasörü içeriği:")
+    log(f"  📄 {MAIN_PLAYLIST} (ana playlist - tüm kanallar)")
+    for filename in created_files[:10]:  # İlk 10'u göster
+        log(f"  📺 {filename}")
+    if len(created_files) > 10:
+        log(f"  ... ve {len(created_files) - 10} dosya daha")
     
     # Bulunan ID'leri göster
-    log("\nBulunan Kanal ID'leri:")
-    for slug, cid in CHANNEL_IDS.items():
-        if cid:
-            log(f"  {slug}: {cid}")
+    if CHANNEL_IDS:
+        log("\n🔑 Bulunan Kanal ID'leri:")
+        for slug, cid in list(CHANNEL_IDS.items())[:10]:
+            if cid:
+                log(f"  {slug}: {cid}")
+        if len(CHANNEL_IDS) > 10:
+            log(f"  ... ve {len(CHANNEL_IDS) - 10} ID daha")
     
     return 0 if found > 0 else 1
 

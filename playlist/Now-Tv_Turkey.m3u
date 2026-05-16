@@ -1,0 +1,5 @@
+#EXTM3U
+# Updated: 2026-05-16 20:39:11 UTC
+
+#EXTINF:-1 tvg-id="now-tv-turkey" tvg-name="Now-Tv Turkey" group-title="TV247",Now-Tv Turkey
+https://chat.cfbu247.sbs/api/proxy/playlist?token=eyJjaGFubmVsSWQiOiIxMDAzIiwidHMiOjE3Nzg5NjM5NTEzMjZ9

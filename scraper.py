@@ -37,6 +37,19 @@ CHANNEL_IDS = {
     "arena-sport-1-premium": "134",
 }
 
+# Kanal logoları
+LOGO_URLS = {
+    "bein-sports-1-turkey": "https://static.epg.best/qa/beINSports1.qa.png",
+    "bein-sports-2-turkey": "https://static.epg.best/qa/beINSports2.qa.png",
+    "bein-sports-3-turkey": "https://static.epg.best/qa/beINSports3.qa.png",
+    "bein-sports-4-turkey": "https://static.epg.best/qa/beINSports4.qa.png",
+    "bein-sports-5-turkey": "https://static.epg.best/qa/beINSports5.qa.png",
+    "atv-turkey": "https://i.postimg.cc/PxH8NQjN/Atv-logo-2010-svg.png",
+    "now-tv-turkey": "https://i.postimg.cc/SKsCFTPD/nowtv.png",
+    "a-spor-turkey": "https://upload.wikimedia.org/wikipedia/tr/e/e9/A_Spor_logosu.png",
+    "trt-spor-turkey": "https://i.postimg.cc/5yyjxb2C/trt-spor.png",
+    "arena-sport-1-premium": "https://upload.wikimedia.org/wikipedia/commons/e/ea/Logo_Arena_Sport_TV_1.png",
+}
 
 def log(msg):
     print(f"[{datetime.now().strftime('%H:%M:%S')}] {msg}")
@@ -348,10 +361,14 @@ def load_channels():
         channels = [
             {'slug': 'bein-sports-1-turkey', 'name': 'beIN Sports 1'},
             {'slug': 'bein-sports-2-turkey', 'name': 'beIN Sports 2'},
+            {'slug': 'bein-sports-3-turkey', 'name': 'beIN Sports 3'},
+            {'slug': 'bein-sports-4-turkey', 'name': 'beIN Sports 4'},
+            {'slug': 'bein-sports-5-turkey', 'name': 'beIN Sports 5'},
             {'slug': 'trt-spor-turkey', 'name': 'TRT Spor'},
             {'slug': 'a-spor-turkey', 'name': 'A Spor'},
             {'slug': 'now-tv-turkey', 'name': 'NOW TV'},
             {'slug': 'atv-turkey', 'name': 'ATV'},
+            {'slug': 'arena-sport-1-premium', 'name': 'Arena Sport 1 Premium'},
         ]
     
     return channels
@@ -371,9 +388,13 @@ def generate_single_m3u(channel, output_dir):
     lines.append('')
     
     if channel.get('url'):
+        # Logo URL'sini al
+        logo_url = LOGO_URLS.get(channel['slug'], "")
+        logo_param = f' tvg-logo="{logo_url}"' if logo_url else ""
+        
         lines.append(
             f'#EXTINF:-1 tvg-id="{channel["slug"]}" '
-            f'tvg-name="{channel["name"]}" '
+            f'tvg-name="{channel["name"]}"{logo_param} '
             f'group-title="TV247",{channel["name"]}'
         )
         lines.append(channel['url'])
@@ -398,9 +419,13 @@ def generate_main_playlist(results, output_dir, main_playlist_name):
     
     for ch in results:
         if ch.get('url'):
+            # Logo URL'sini al
+            logo_url = LOGO_URLS.get(ch['slug'], "")
+            logo_param = f' tvg-logo="{logo_url}"' if logo_url else ""
+            
             lines.append(
                 f'#EXTINF:-1 tvg-id="{ch["slug"]}" '
-                f'tvg-name="{ch["name"]}" '
+                f'tvg-name="{ch["name"]}"{logo_param} '
                 f'group-title="TV247",{ch["name"]}'
             )
             lines.append(ch['url'])

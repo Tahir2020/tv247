@@ -50,11 +50,21 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add -f tv247.m3u
+          
+          # playlist klasörünü ve içindeki tüm dosyaları ekle
+          git add -f playlist/
+          git add -f playlist.m3u 2>/dev/null || true  # Eski dosyayı da temizle
+          
+          # Eski tv247.m3u dosyasını varsa sil
+          if [ -f "tv247.m3u" ]; then
+            git rm -f tv247.m3u 2>/dev/null || true
+            rm -f tv247.m3u
+          fi
+          
           if git diff --cached --quiet; then
             echo "Değişiklik yok"
           else
             TIMESTAMP=$(date -u '+%Y-%m-%d %H:%M UTC')
-            git commit -m "🔄 Update playlist | ${TIMESTAMP}"
+            git commit -m "🔄 Update playlists | ${TIMESTAMP}"
             git push
           fi

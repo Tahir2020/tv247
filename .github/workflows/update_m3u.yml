@@ -1,4 +1,4 @@
-name: Update M3U Playlist
+name: 🆗 Update M3U Playlist
 
 on:
   # Her 1 saatte bir çalışsın
@@ -65,6 +65,6 @@ jobs:
             echo "Değişiklik yok"
           else
             TIMESTAMP=$(date -u '+%Y-%m-%d %H:%M UTC')
-            git commit -m "🔄 Update playlists | ${TIMESTAMP}"
+            git commit -m "⚽ Update playlists | ${TIMESTAMP}"
             git push
           fi

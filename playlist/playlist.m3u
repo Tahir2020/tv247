@@ -1,33 +1,33 @@
 #EXTM3U
-# Updated: 2026-07-12 15:55:00 UTC
+# Updated: 2026-07-12 16:54:27 UTC
 # This playlist contains all channels
 
 #EXTINF:-1 tvg-id="bein-sports-1-turkey" tvg-name="beIN Sports 1 Turkey" tvg-logo="https://static.epg.best/qa/beINSports1.qa.png" group-title="TV247",beIN Sports 1 Turkey
-https://chat.cfbu247.sbs/api/proxy/playlist?token=eyJjaGFubmVsSWQiOiI2MiIsInRzIjoxNzgzODcxNjkwMTEwfQ==
+https://chat.cfbu247.sbs/api/proxy/playlist?token=eyJjaGFubmVsSWQiOiI2MiIsInRzIjoxNzgzODc1MjU3NzgwfQ==
 
 #EXTINF:-1 tvg-id="bein-sports-2-turkey" tvg-name="beIN Sports 2 Turkey" tvg-logo="https://static.epg.best/qa/beINSports2.qa.png" group-title="TV247",beIN Sports 2 Turkey
-https://chat.cfbu247.sbs/api/proxy/playlist?token=eyJjaGFubmVsSWQiOiI2MyIsInRzIjoxNzgzODcxNjkxMTExfQ==
+https://chat.cfbu247.sbs/api/proxy/playlist?token=eyJjaGFubmVsSWQiOiI2MyIsInRzIjoxNzgzODc1MjU4NzgxfQ==
 
 #EXTINF:-1 tvg-id="bein-sports-3-turkey" tvg-name="beIN Sports 3 Turkey" tvg-logo="https://static.epg.best/qa/beINSports3.qa.png" group-title="TV247",beIN Sports 3 Turkey
-https://chat.cfbu247.sbs/api/proxy/playlist?token=eyJjaGFubmVsSWQiOiI2NCIsInRzIjoxNzgzODcxNjkyMTExfQ==
+https://chat.cfbu247.sbs/api/proxy/playlist?token=eyJjaGFubmVsSWQiOiI2NCIsInRzIjoxNzgzODc1MjU5NzgyfQ==
 
 #EXTINF:-1 tvg-id="bein-sports-4-turkey" tvg-name="beIN Sports 4 Turkey" tvg-logo="https://static.epg.best/qa/beINSports4.qa.png" group-title="TV247",beIN Sports 4 Turkey
-https://chat.cfbu247.sbs/api/proxy/playlist?token=eyJjaGFubmVsSWQiOiI2NyIsInRzIjoxNzgzODcxNjkzMTEyfQ==
+https://chat.cfbu247.sbs/api/proxy/playlist?token=eyJjaGFubmVsSWQiOiI2NyIsInRzIjoxNzgzODc1MjYwNzgyfQ==
 
 #EXTINF:-1 tvg-id="bein-sports-5-turkey" tvg-name="beIN Sports 5 Turkey" tvg-logo="https://static.epg.best/qa/beINSports5.qa.png" group-title="TV247",beIN Sports 5 Turkey
-https://chat.cfbu247.sbs/api/proxy/playlist?token=eyJjaGFubmVsSWQiOiIxMDEwIiwidHMiOjE3ODM4NzE2OTQxMTN9
+https://chat.cfbu247.sbs/api/proxy/playlist?token=eyJjaGFubmVsSWQiOiIxMDEwIiwidHMiOjE3ODM4NzUyNjE3ODN9
 
 #EXTINF:-1 tvg-id="atv-turkey" tvg-name="Atv Turkey" tvg-logo="https://i.postimg.cc/PxH8NQjN/Atv-logo-2010-svg.png" group-title="TV247",Atv Turkey
-https://chat.cfbu247.sbs/api/proxy/playlist?token=eyJjaGFubmVsSWQiOiIxMDAwIiwidHMiOjE3ODM4NzE2OTUxMTN9
+https://chat.cfbu247.sbs/api/proxy/playlist?token=eyJjaGFubmVsSWQiOiIxMDAwIiwidHMiOjE3ODM4NzUyNjI3ODN9
 
 #EXTINF:-1 tvg-id="now-tv-turkey" tvg-name="Now-Tv Turkey" tvg-logo="https://i.postimg.cc/SKsCFTPD/nowtv.png" group-title="TV247",Now-Tv Turkey
-https://chat.cfbu247.sbs/api/proxy/playlist?token=eyJjaGFubmVsSWQiOiIxMDAzIiwidHMiOjE3ODM4NzE2OTYxMTR9
+https://chat.cfbu247.sbs/api/proxy/playlist?token=eyJjaGFubmVsSWQiOiIxMDAzIiwidHMiOjE3ODM4NzUyNjM3ODR9
 
 #EXTINF:-1 tvg-id="a-spor-turkey" tvg-name="A-Spor Turkey" tvg-logo="https://upload.wikimedia.org/wikipedia/tr/e/e9/A_Spor_logosu.png" group-title="TV247",A-Spor Turkey
-https://chat.cfbu247.sbs/api/proxy/playlist?token=eyJjaGFubmVsSWQiOiIxMDExIiwidHMiOjE3ODM4NzE2OTcxMTR9
+https://chat.cfbu247.sbs/api/proxy/playlist?token=eyJjaGFubmVsSWQiOiIxMDExIiwidHMiOjE3ODM4NzUyNjQ3ODV9
 
 #EXTINF:-1 tvg-id="trt-spor-turkey" tvg-name="Trt-Spor Turkey" tvg-logo="https://i.postimg.cc/5yyjxb2C/trt-spor.png" group-title="TV247",Trt-Spor Turkey
-https://chat.cfbu247.sbs/api/proxy/playlist?token=eyJjaGFubmVsSWQiOiI4ODkiLCJ0cyI6MTc4Mzg3MTY5ODExNX0=
+https://chat.cfbu247.sbs/api/proxy/playlist?token=eyJjaGFubmVsSWQiOiI4ODkiLCJ0cyI6MTc4Mzg3NTI2NTc4NX0=
 
 #EXTINF:-1 tvg-id="arena-sport-1-premium" tvg-name="Arena Sport 1 premium" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/e/ea/Logo_Arena_Sport_TV_1.png" group-title="TV247",Arena Sport 1 premium
-https://chat.cfbu247.sbs/api/proxy/playlist?token=eyJjaGFubmVsSWQiOiIxMzQiLCJ0cyI6MTc4Mzg3MTY5OTExNX0=
+https://chat.cfbu247.sbs/api/proxy/playlist?token=eyJjaGFubmVsSWQiOiIxMzQiLCJ0cyI6MTc4Mzg3NTI2Njc4Nn0=
